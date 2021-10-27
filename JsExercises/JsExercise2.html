@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> JavaScript Exercise 2 By Riku Kallio </title>
+		<link rel="stylesheet" href="jsExerciseStyle.css">
+	</head>
+	<body>
+	<p>JavaScript exercise 2 by Riku Kallio</p>	
+	
+	<button class="open-button" onclick="openForm()"><h2>
+	ADD</h2></button>
+	
+	
+	<div class="form" id="myForm">
+		<form class="form-container">
+			<label for="question"><p>Question for The Guru:<p></label>
+				<input type="text" id="question" value="" size="40" required>
+			<label for="formCategory"><p>Select category:</p></label>
+			<select id="formCategory">
+				<option value="HTML">HTML</option>
+				<option value="CSS">CSS</option>
+				<option value="JS">JS</option>
+			</select><br><br>
+			<button class="btn" id="saveItem"><h3>SAVE</h3></button>
+			<button class="btn cancel" onclick="closeForm()"><h3>CANCEL</h3></button>
+		</form>
+	</div>
+	
+	<div class="entries">
+		<div id="lsOutput"></div>
+	</div>
+	
+	<script type = "text/javascript">
+	// OPEN-painikkeen toiminta
+	function openForm() {
+		document.getElementById("myForm").style.display = "block";
+	}
+	// CANCEL-painikkeen toiminta
+	function closeForm() {
+		document.getElementById("myForm").style.display = "none";
+	}	
+	// Muuttujien alustus
+	const question = document.getElementById("question");
+	
+	const formCategory = document.getElementById("formCategory");
+	
+	const saveItem = document.getElementById("saveItem");
+	
+	const lsOutput = document.getElementById("lsOutput");
+	
+	// Asettaa tiedot localStorageen jos kummassakin muuttujassa on arvo
+	saveItem.onclick = function() {
+		
+		const key = question.value;
+		const value = formCategory.value;
+		
+		if (key && value) {
+			localStorage.setItem(key, value);
+			location.reload();
+		}
+	};
+	// Luettelee localStorageen syötetyt tiedot
+	for (let i = 0; i < localStorage.length; i++) {
+		const key = localStorage.key(i);
+		const value = localStorage.getItem(key);
+
+		lsOutput.innerHTML += `${key}: ${value}<br />`;
+	}
+	</script>
+	</body>
+</html>
