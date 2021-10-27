@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>JavaScript Exercise 1 By Riku Kallio</title>
+		<link rel="stylesheet" href="jsExerciseStyle.css">
+	</head>
+	<body>
+
+		<p>JavaScript Exercise 1:</p>
+
+		<p id="demo"></p>
+		
+		<script language = "JavaScript">
+		let birds = ["Adam", "Ben", "Charlie", "David", "Emily", "Frank", "Garry",  "Harry", "James", "Peter"];
+		// kertoo nykyisen birds-taulukon nimen numeron
+		var x = 0;
+		// Määrittää, poistetaanko kirjaimet ensimmäisen vai viimeisen kirjaimen perusteella
+		var turn = 0;
+		// Muuttaa linnun nimen luettavaan muotoon
+		var currentBird = birds[x].toString();
+		// Alustus
+		document.getElementById("demo").innerHTML = currentBird;
+
+		document.addEventListener('keydown', function (event){
+		  // Nimen ensimmäisen kirjaimen poisto
+		  if (turn == 0 && event.key === currentBird.charAt(0)) {
+			  document.getElementById("demo").innerHTML = currentBird.replace(new RegExp(currentBird.charAt(0), 'gi'), "");
+			  currentBird = currentBird.replace(new RegExp(currentBird.charAt(0), 'gi'), "");
+			  turn++;
+			  checkLength();
+		  }
+		  // Nimen viimeisen kirjaimen poisto
+		  if (turn == 1 && event.key === currentBird.charAt(currentBird.length-1)) {
+			  document.getElementById("demo").innerHTML = currentBird.replace(new RegExp(currentBird.charAt(currentBird.length-1), 'gi'), "");
+			  currentBird = currentBird.replace(new RegExp(currentBird.charAt(currentBird.length-1), 'gi'), "");
+			  turn--;
+			  checkLength();
+		  }
+		});
+		
+		function checkLength()
+		{	
+			/* Tarkistaa nykyisen nimen pituuden. Ehdon ollesssa totta valitaan seuraava sana
+			ja asetetetaan ensimmäisen kirjaimen poiston ehto. */
+			if (currentBird.length < 1){
+				// Aloittaa taulukon alusta mikäli viimeinen lintu on käyty läpi
+				if (x == 9)
+					x = 0;
+				else
+					x++;
+					turn = 0;
+					currentBird = birds[x].toString();
+					document.getElementById("demo").innerHTML = currentBird;
+			}
+		}
+		</script>
+
+	</body>
+</html>
